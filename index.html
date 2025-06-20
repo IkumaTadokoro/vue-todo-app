@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>My Todo App</title>
+</head>
+<body>
+    <div id="app">
+        <h1>Todo</h1>
+        <h2>タスク追加</h2>
+        <input
+            type="text"
+            v-model="newTodo"
+        />
+        <button @click="add()">登録</button>
+
+        <h2>タスク一覧</h2>
+        <table
+            style="table-layout:fixed;width:30%;"
+            v-for="todo in todos"
+            :key="todo.id"
+        >
+            <colgroup>
+                <col style="width:83.5%;">
+                <col style="width:8.25%;">
+                <col style="width:8.25%;">
+            </colgroup>
+            <tbody>
+            <tr>
+                <template v-if="todo.id !== editId">
+                    <td style="word-wrap:break-word;">{{ todo.content }}</td>
+                    <td><button @click="edit(todo.id)">編集</button></td>
+                </template>
+                <template v-else>
+                    <td>
+                        <input
+                            type="text"
+                            style="width: 98%"
+                            readonly
+                            v-model="todo.content"
+                        >
+                    </td>
+                    <td><button @click="update(todo.id)">更新</button></td>
+                </template>
+                <td><button @click="destroy(todo.id)">削除</button></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@3.0.0/dist/vue.global.js"></script>
+    <script type="text/javascript" src="index.js"></script>
+</body>
+</html>
